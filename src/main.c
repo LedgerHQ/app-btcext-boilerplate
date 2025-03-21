@@ -27,8 +27,21 @@ static uint8_t external_input_scriptPubKey[P2TR_SCRIPTPUBKEY_LEN];
 // use values >= 128 to avoid future conflicts with the APDUs of the base app
 #define INS_CUSTOM_XOR 128
 
-// A custom APDU that returns the xor of all the input bytes as a single byte.
-// Such compression. Wow.
+/**
+ * @brief Custom APDU handler that computes the XOR of input data.
+ *
+ * This function can be implemented by derived applications in order to
+ * handle custom APDU commands
+ *
+ * Applications with no custom APDU should remove this function.
+ *
+ * @param dc Dispatcher context.
+ * @param cmd APDU command structure.
+ * @return true if the command is handled, false otherwise.
+ *         If true is returned, either an error or a success response must be sent before returning.
+ *         Otherwise, false should be returned without sending any response, and the base app will
+ *         process the APDU as usual.
+ */
 bool custom_apdu_handler(dispatcher_context_t *dc, const command_t *cmd) {
     if (cmd->cla != CLA_APP) {
         return false;
@@ -46,6 +59,7 @@ bool custom_apdu_handler(dispatcher_context_t *dc, const command_t *cmd) {
     return false;
 }
 
+// validation logic specific to the example 'Foo' protocol
 static bool validate_transaction(dispatcher_context_t *dc,
                                  sign_psbt_state_t *st,
                                  const uint8_t internal_inputs[64],
@@ -197,7 +211,28 @@ static bool validate_transaction(dispatcher_context_t *dc,
     return true;
 }
 
-// hooking into a weak function
+/**
+ * @brief Validates and displays the transaction's Clear Signing UX for user confirmation.
+ *
+ * This function is called during the signing process, and is responsible for validating
+ * the transaction, and showing the appropriate Clear Signing UX.
+ *
+ * Inputs are considered internal if they belong to the wallet policy, and outputs are internal
+ * if they are valid change outputs.
+ *
+ * It is the responsibility of this function to validate all the remaining inputs and outputs.
+ * This function MUST fail if any unexpected inputs/outputs are found.
+ *
+ * This function must return false if the signing flow should not continue. In that case, an
+ * error status word should be sent. If the function returns true, no status word should be sent,
+ * and the signing flow will continue.
+ *
+ * @param dc Dispatcher context.
+ * @param st PSBT signing state.
+ * @param internal_inputs Bitvector representing internal inputs.
+ * @param internal_outputs Bitvector representing internal outputs.
+ * @return true if validated and displayed successfully, false otherwise.
+ */
 bool validate_and_display_transaction(dispatcher_context_t *dc,
                                       sign_psbt_state_t *st,
                                       const uint8_t internal_inputs[64],
@@ -213,12 +248,28 @@ bool validate_and_display_transaction(dispatcher_context_t *dc,
     uint64_t fee = st->inputs_total_amount - st->outputs.total_amount;
 
     if (!display_transaction(dc, internal_value, magic_input_value, fee)) {
+        SEND_SW(dc, SW_DENY);
         return false;
     }
 
     return true;
 }
 
+/**
+ * @brief Signs the custom (special) input.
+ *
+ * This function must be implemented in order to sign for all the inputs that are not internal.
+ * If not implemented, only the internal inputs are signed (handled by the base app).
+ *
+ * This function must return false in case of any error. In that case, an error status word should
+ * be sent. If the function returns true, no status word should be sent.
+ *
+ * @param dc Dispatcher context.
+ * @param st PSBT signing state.
+ * @param tx_hashes Transaction hashes.
+ * @param internal_inputs Bitvector representing internal inputs.
+ * @return true if signing was successful, false otherwise.
+ */
 bool sign_custom_inputs(
     dispatcher_context_t *dc,
     sign_psbt_state_t *st,

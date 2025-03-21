@@ -75,6 +75,7 @@ bool display_transaction(dispatcher_context_t *dc,
                        "Sign transaction\nto create a FOO output?",
                        review_choice);
 
+    // blocking call until the user approves or rejects the transaction
     bool result = io_ui_process(dc);
     if (!result) {
         SEND_SW(dc, SW_DENY);
