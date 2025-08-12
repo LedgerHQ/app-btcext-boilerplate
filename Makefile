@@ -25,9 +25,6 @@ APPVERSION_N = 1
 APPVERSION_P = 0
 APPVERSION = "$(APPVERSION_M).$(APPVERSION_N).$(APPVERSION_P)"
 
-APPDEVELOPPER = "Ledger"
-APPCOPYRIGHT = "(c) 2025 Ledger"
-
 # Setting to allow building variant applications
 VARIANT_PARAM = COIN
 VARIANT_VALUES = btcext_boilerplate btcext_boilerplate_testnet
@@ -41,6 +38,7 @@ endif
 #DEBUG = 1
 
 APP_DESCRIPTION = "This app enables signing\nFoo transactions\nfor all you Fools."
+APP_DEVELOPER = "FooCorp"
 
 ifeq ($(COIN),btcext_boilerplate)
 APPNAME = "Btcext Boilerplate"
