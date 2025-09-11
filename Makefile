@@ -22,7 +22,7 @@
 # Application version
 APPVERSION_M = 0
 APPVERSION_N = 1
-APPVERSION_P = 0
+APPVERSION_P = 1
 APPVERSION = "$(APPVERSION_M).$(APPVERSION_N).$(APPVERSION_P)"
 
 # Setting to allow building variant applications
@@ -58,7 +58,8 @@ APP_SOURCE_PATH += bitcoin_app_base/src src
 # https://developers.ledger.com/docs/embedded-app/design-requirements/#device-icon
 ICON_NANOX = icons/nanox_app_foo.gif
 ICON_NANOSP = icons/nanox_app_foo.gif
-ICON_STAX = icons/stax_app_foo.gif
-ICON_FLEX = icons/flex_app_foo.gif
+ICON_STAX = icons/stax_app_foo.png
+ICON_FLEX = icons/flex_app_foo.png
+ICON_APEX_P = icons/apex_p_app_foo.png
 
 include bitcoin_app_base/Makefile
