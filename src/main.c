@@ -43,16 +43,14 @@ static uint8_t external_input_scriptPubKey[P2TR_SCRIPTPUBKEY_LEN];
  *         process the APDU as usual.
  */
 bool custom_apdu_handler(dispatcher_context_t *dc, const command_t *cmd) {
+    UNUSED(dc);
+
     if (cmd->cla != CLA_APP) {
         return false;
     }
-    if (cmd->ins == INS_CUSTOM_XOR) {
-        uint8_t result = 0;
-        for (int i = 0; i < cmd->lc; i++) {
-            result ^= cmd->data[i];
-        }
-
-        SEND_RESPONSE(dc, &result, 1, SW_OK);
+    /* Disabling SIGN_MESSAGE command */
+    if (cmd->ins == SIGN_MESSAGE) {
+        io_send_sw(SW_CLA_NOT_SUPPORTED);
         return true;
     }
 
