@@ -2,7 +2,7 @@
 
 #include "../bitcoin_app_base/src/ui/display.h"
 #include "../bitcoin_app_base/src/ui/menu.h"
-#include "io.h"
+#include "io_ext.h"
 #include "nbgl_use_case.h"
 
 static void review_choice(bool approved) {
