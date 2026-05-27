@@ -106,7 +106,8 @@ static bool validate_transaction(dispatcher_context_t *dc,
                                                     sizeof(witness_utxo))) {
         PRINTF("Failed to get witness utxo, or invalid witness utxo\n");
         SEND_SW(dc, SW_INCORRECT_DATA);
-    };
+        return false;
+    }
     if (witness_utxo[8] != 34) {
         PRINTF("Unexpected scriptPubKey length in witness utxo: %d\n", witness_utxo[8]);
         SEND_SW(dc, SW_INCORRECT_DATA);
