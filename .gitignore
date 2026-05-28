@@ -6,6 +6,7 @@ debug/
 dep/
 obj/
 build/
+.vscode/settings.json
 
 # Unit tests and code coverage
 unit-tests/build/
