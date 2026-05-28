@@ -16,17 +16,18 @@ static void review_choice(bool approved) {
     }
 }
 
-#define MAX_N_PAIRS 4;
+#define MAX_N_PAIRS 4
+
+// These are kept static rather than on the stack because the NBGL library
+// stores pointers to them that must remain valid long term.
+static nbgl_layoutTagValue_t pairs[MAX_N_PAIRS];
+static nbgl_layoutTagValueList_t pairList;
+static char value_str[32], magic_value_str[32], fee_str[32];
 
 bool display_transaction(dispatcher_context_t *dc,
                          int64_t value_spent,
                          uint64_t magic_input_value,
                          uint64_t fee) {
-    nbgl_layoutTagValue_t pairs[4];
-    nbgl_layoutTagValueList_t pairList;
-
-    // format value_spent
-    char value_str[32], magic_value_str[32], fee_str[32];
     uint64_t value_spent_abs = value_spent < 0 ? -value_spent : value_spent;
     format_sats_amount(COIN_COINID_SHORT, value_spent_abs, value_str);
     format_sats_amount(COIN_COINID_SHORT, magic_input_value, magic_value_str);
