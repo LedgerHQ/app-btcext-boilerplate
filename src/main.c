@@ -6,6 +6,7 @@
 #include "../bitcoin_app_base/src/handler/lib/get_merkleized_map.h"
 #include "../bitcoin_app_base/src/handler/lib/get_merkleized_map_value.h"
 #include "../bitcoin_app_base/src/handler/sign_psbt.h"
+#include "../bitcoin_app_base/src/handler/sign_psbt/sign_input.h"
 #include "../bitcoin_app_base/src/handler/sign_psbt/txhashes.h"
 #include "../bitcoin_app_base/src/crypto.h"
 
