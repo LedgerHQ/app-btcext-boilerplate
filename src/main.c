@@ -101,8 +101,8 @@ static bool validate_transaction(dispatcher_context_t *dc,
 
     if (8 + 1 + 34 != call_get_merkleized_map_value(dc,
                                                     &external_input_map,
-                                                    (uint8_t[]){PSBT_IN_WITNESS_UTXO},
-                                                    sizeof((uint8_t[]){PSBT_IN_WITNESS_UTXO}),
+                                                    (uint8_t[]) {PSBT_IN_WITNESS_UTXO},
+                                                    sizeof((uint8_t[]) {PSBT_IN_WITNESS_UTXO}),
                                                     witness_utxo,
                                                     sizeof(witness_utxo))) {
         PRINTF("Failed to get witness utxo, or invalid witness utxo\n");
@@ -180,8 +180,8 @@ static bool validate_transaction(dispatcher_context_t *dc,
     uint8_t raw_amount[8];
     if (8 != call_get_merkleized_map_value(dc,
                                            &output_map,
-                                           (uint8_t[]){PSBT_OUT_AMOUNT},
-                                           sizeof((uint8_t[]){PSBT_OUT_AMOUNT}),
+                                           (uint8_t[]) {PSBT_OUT_AMOUNT},
+                                           sizeof((uint8_t[]) {PSBT_OUT_AMOUNT}),
                                            raw_amount,
                                            sizeof(raw_amount))) {
         SEND_SW(dc, SW_INCORRECT_DATA);
@@ -199,7 +199,7 @@ static bool validate_transaction(dispatcher_context_t *dc,
     uint8_t scriptPubKey[32];
     int result_len = call_get_merkleized_map_value(dc,
                                                    &output_map,
-                                                   (uint8_t[]){PSBT_OUT_SCRIPT},
+                                                   (uint8_t[]) {PSBT_OUT_SCRIPT},
                                                    1,
                                                    scriptPubKey,
                                                    sizeof(scriptPubKey));

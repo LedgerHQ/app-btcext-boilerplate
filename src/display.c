@@ -34,29 +34,29 @@ bool display_transaction(dispatcher_context_t *dc,
     format_sats_amount(COIN_COINID_SHORT, fee, fee_str);
 
     int n_pairs = 0;
-    pairs[n_pairs++] = (nbgl_layoutTagValue_t){
+    pairs[n_pairs++] = (nbgl_layoutTagValue_t) {
         .item = "Transaction type",
         .value = "FOO",
     };
 
     if (value_spent >= 0) {
-        pairs[n_pairs++] = (nbgl_layoutTagValue_t){
+        pairs[n_pairs++] = (nbgl_layoutTagValue_t) {
             .item = "Value spent",
             .value = value_str,
         };
     } else {
-        pairs[n_pairs++] = (nbgl_layoutTagValue_t){
+        pairs[n_pairs++] = (nbgl_layoutTagValue_t) {
             .item = "Value received",
             .value = value_str,
         };
     }
 
-    pairs[n_pairs++] = (nbgl_layoutTagValue_t){
+    pairs[n_pairs++] = (nbgl_layoutTagValue_t) {
         .item = "Magic value",
         .value = magic_value_str,
     };
 
-    pairs[n_pairs++] = (nbgl_layoutTagValue_t){
+    pairs[n_pairs++] = (nbgl_layoutTagValue_t) {
         .item = "Fee",
         .value = fee_str,
     };
