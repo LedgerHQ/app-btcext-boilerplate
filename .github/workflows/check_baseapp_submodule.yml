@@ -1,7 +1,7 @@
 name: Check that the submodule is up to date
 
 # This workflow ensures that the submodule is up to date with the 'baseapp' branch
-# of the https://github.com/LedgerHQ/app-bitcoin-new repository.
+# of the https://github.com/LedgerHQ/app-bitcoin repository.
 
 on:
   workflow_dispatch:
