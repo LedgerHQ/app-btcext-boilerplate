@@ -37,7 +37,7 @@ The function can use the functionality implemented in the base app in order to c
 - SegWitV0 inputs: `compute_sighash_segwitv0` and `sign_sighash_ecdsa_and_yield`;
 - Legacy inputs: you should probably not use custom legacy inputs.
 
-Please consult the code of the base app for exact documentation about those functions. Definitions are in the headers [sign_psbt.h](https://github.com/LedgerHQ/app-bitcoin-new/blob/baseapp/src/handler/sign_psbt.h) and [txhashes.h](https://github.com/LedgerHQ/app-bitcoin-new/blob/baseapp/src/handler/sign_psbt/txhashes.h).
+Please consult the code of the base app for exact documentation about those functions. Definitions are in the headers [sign_psbt.h](https://github.com/LedgerHQ/app-bitcoin/blob/baseapp/src/handler/sign_psbt.h) and [txhashes.h](https://github.com/LedgerHQ/app-bitcoin/blob/baseapp/src/handler/sign_psbt/txhashes.h).
 
 If there are no external inputs to sign for, then this function can be omitted.
 
