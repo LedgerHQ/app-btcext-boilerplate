@@ -11,6 +11,7 @@
 #include "../bitcoin_app_base/src/crypto.h"
 
 #include "display.h"
+#include "read.h"
 
 static const uint8_t OP_RETURN_FOO[] = {0x6a, 0x03, 'F', 'O', 'O'};
 
